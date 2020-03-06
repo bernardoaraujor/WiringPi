@@ -20,6 +20,7 @@ FILE(GLOB HEADERS ${PROJECT_SOURCE_DIR}/devLib/*.h
 
 # make this output a shared library (with .so output)
 add_library (wiringPi SHARED ${SRC_FILES})
+add_library (wiringPiDev SHARED ${SRC_FILES})
 
 # be sure to include the current source directory for header files
 target_include_directories (wiringPi PUBLIC
@@ -27,12 +28,24 @@ target_include_directories (wiringPi PUBLIC
 	${PROJECT_SOURCE_DIR}/devLib
 )
 
+target_include_directories (wiringPiDev PUBLIC
+	${PROJECT_SOURCE_DIR}/wiringPi
+	${PROJECT_SOURCE_DIR}/wiringPiD
+	${PROJECT_SOURCE_DIR}/devLib
+)
+
 # add the following required libraries:
 # Threads, Math, Crypt, and RealTime
 target_link_libraries(wiringPi ${CMAKE_THREAD_LIBS_INIT} crypt m rt)
+target_link_libraries(wiringPiDev ${CMAKE_THREAD_LIBS_INIT} crypt m rt)
 
 # 'make install' to the correct locations (provided by GNUInstallDirs).
 install(TARGETS wiringPi EXPORT rpi
+    ARCHIVE  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(TARGETS wiringPiDev EXPORT rpi
     ARCHIVE  DESTINATION ${CMAKE_INSTALL_LIBDIR}
     LIBRARY  DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
