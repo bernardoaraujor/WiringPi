@@ -36,8 +36,8 @@ target_include_directories (wiringPiDev PUBLIC
 
 # add the following required libraries:
 # Threads, Math, Crypt, and RealTime
-target_link_libraries(wiringPi ${CMAKE_THREAD_LIBS_INIT} crypt m rt)
-target_link_libraries(wiringPiDev ${CMAKE_THREAD_LIBS_INIT} crypt m rt)
+target_link_libraries(wiringPi ${CMAKE_THREAD_LIBS_INIT} pthread crypt m rt)
+target_link_libraries(wiringPiDev ${CMAKE_THREAD_LIBS_INIT} pthread crypt m rt)
 
 # 'make install' to the correct locations (provided by GNUInstallDirs).
 install(TARGETS wiringPi EXPORT rpi
